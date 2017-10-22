@@ -11,7 +11,11 @@ macOS Sierra 10.12.5 with dell xps15-9550(16G 1080p 512G) hackintosh
 项目目录
 ---------------
 * HelloWorld
-  >日期：2017-10-05
-  >内容：第一个项目HelloWorld.
+  >日期：2017-10-05 <br />
+  >内容：第一个项目HelloWorld. <br />
+
+* SpaceShooter
+  >日期：2017-10-22 <br />
+  >内容：一个简单的太空射击游戏 <br />
 
 
