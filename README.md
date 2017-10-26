@@ -18,4 +18,6 @@ macOS Sierra 10.12.5 with dell xps15-9550(16G 1080p 512G) hackintosh
   >日期：2017-10-22 <br />
   >内容：一个简单的太空射击游戏 <br />
 
-
+* ChickenShooter
+  >日期：2017-10-26 <br />
+  >内容：最终作业 ---- 像素级模仿吃鸡游戏 <br />
