@@ -71,11 +71,11 @@ public class Player : NetworkBehaviour {
 		if (life <= 0 || !isLocalPlayer) { return; }
 		Contorl();
 		Animate();
-
-
-
+		FireBullet();	// DEBUG
 	}	// Update
 
+
+	/*
 	void cameraUpdate (Transform target, Transform transform) {
 			if(target){
 				float targetRotationAngle=target.eulerAngles.y;//目标的朝向
@@ -98,8 +98,9 @@ public class Player : NetworkBehaviour {
 				//使摄像机一直朝着目标方向
 				transform.LookAt(target);
 			}
-
 	}
+	*/
+
 
 	void Contorl() {
 		/*	contorl player movement */
@@ -134,7 +135,7 @@ public class Player : NetworkBehaviour {
 
 		//// Camera ////
 		// set rotation
-//		 camTransform.rotation = playerTransform.rotation;
+		// camTransform.rotation = playerTransform.rotation;
 		// set position
 		camTransform.position = playerTransform.position;
 		camTransform.localPosition += camOffset;
@@ -161,8 +162,31 @@ public class Player : NetworkBehaviour {
 		anim.SetBool("IsRunning", isRunning);
 		if (isAiming && !isJogging && Input.GetKeyDown(KeyCode.Mouse0)) {
 			anim.SetTrigger("Fire");
+			// FireBullet();
 		}
 	}
+
+
+
+	GameObject FireBullet() {
+		/**	call this after a bullet is fired
+		Param:	void
+		Return:	the <GameObject> that is hit || null
+		*/
+
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		RaycastHit hit;
+
+		if (Physics.Raycast(ray, out hit, 100)) {
+			Debug.DrawLine(ray.origin, hit.point);
+			Debug.Log(hit.collider.gameObject);
+			return hit.collider.gameObject;
+		}
+
+		return null;
+
+	}	// FireBullet
+
 
 
 

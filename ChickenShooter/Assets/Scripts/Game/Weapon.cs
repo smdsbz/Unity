@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour {
 
@@ -22,12 +23,14 @@ public class Weapon : MonoBehaviour {
 	void Update () {
 
 		// GunFlare_FX
-		if (Input.GetKeyDown(KeyCode.Mouse0) && fireRate < 0) {
+		if (/*Input.GetKey(KeyCode.Mouse1)	// can't fire before aiming
+				&&*/ Input.GetKeyDown(KeyCode.Mouse0)
+				&& fireRate < 0) {
 			clone_flame = Instantiate(flame, this.transform.position,
 					this.transform.rotation, this.transform) as GameObject;
 			clone_flame.transform.localPosition += new Vector3(0, 0, 60f);
 			flameDuration = 0.13f;
-			fireRate = 0.8f;
+			fireRate = 0.53f;
 		}
 
 		if (flameDuration > 0f)	{
@@ -39,7 +42,7 @@ public class Weapon : MonoBehaviour {
 		if (!(fireRate < 0f)) {
 			fireRate -= Time.deltaTime;
 		}
-
 	}	// Update
+
 
 }
