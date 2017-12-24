@@ -844,7 +844,7 @@ GameObject:
   - component: {fileID: 4603284259325786}
   m_Layer: 0
   m_Name: Bip001
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2162,13 +2162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a84a190a06b44e383ee81f1bb3e3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  distance: 0
-  height: 0
-  heightDamping: 0
-  rotationDamping: 0
-  refRotation: 0
-  refHeight: 0
   life: 5
 --- !u!137 &137878623716755286
 SkinnedMeshRenderer:
