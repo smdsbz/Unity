@@ -7,29 +7,28 @@ using UnityEngine.Networking;
 public class Player : NetworkBehaviour
 {
 
-	// Exposed Parameters
 	public int life = 5;
 
 	// Component References
 	Transform	playerTransform;
 	CharacterController	controller;
 	Animator	anim;
-	Weapon	weapon;
+	Weapon		weapon;
 
 	// Camera : Component
 	Transform camTransform;
-	Vector3 camOffset = new Vector3(1f, 4.6f, -2.2f);
 	// third person
+	Vector3 camOffset = new Vector3(1f, 4.6f, -2.2f);
 	// Vector3 camOffset = new Vector3(0f, 4.5f, 0f); // first person
 
 	// Attributes
-	float	walkSpeed = 4f;
-	float	runSpeed = 14;
-	float	gravity = 2f;
+	float	walkSpeed 	= 4f;
+	float	runSpeed 	= 14;
+	float	gravity 	= 2f;
 	// States - for animations
-	bool	isJogging = false;
-	bool	isRunning = false;
-	bool	isAiming = false;
+	bool	isJogging 	= false;
+	bool	isRunning 	= false;
+	bool	isAiming 	= false;
 
 
 
@@ -60,8 +59,6 @@ public class Player : NetworkBehaviour
 		camTransform.position = playerTransform.position;
 		camTransform.localPosition += camOffset;
 
-
-
 		// Lock mouse
 		Cursor.lockState = CursorLockMode.Locked;
 	}
@@ -70,8 +67,7 @@ public class Player : NetworkBehaviour
 
 	void Update()
 	{
-
-		if (life <= 0 || !isLocalPlayer) {
+		if (!isLocalPlayer) {
 			return;
 		}
 		Contorl();
@@ -150,12 +146,18 @@ public class Player : NetworkBehaviour
 		anim.SetBool("IsAiming", isAiming);
 		anim.SetBool("IsRunning", isRunning);
 		if (isAiming && !isJogging && Input.GetKeyDown(KeyCode.Mouse0)) {
-			anim.SetTrigger("Fire");
-			// FireBullet();
+			if (weapon.PlayFireAnimation(this)) {
+				anim.SetTrigger("Fire");
+			}
 		}
+
 		// check if death
-		if (life < 0) {
+		if (this.life < 0) {
 			anim.SetTrigger("Death");
+			Debug.Log("Should be dead now!");
+		} else {
+			Debug.Log("Still Alive!");
+			Debug.Log(this.life);
 		}
 	}
 

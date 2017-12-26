@@ -9,8 +9,10 @@ public class Weapon : MonoBehaviour
 	public GameObject playerRightHand;	// TODO: temporary
 	public GameObject flame;
 
+	int magazine_size = 300;
+
 	float flameDuration = -1f;
-	public float fireRate = -1f;
+	float fireRate = -1f;
 	GameObject clone_flame;
 	Player player;
 
@@ -23,16 +25,42 @@ public class Weapon : MonoBehaviour
 
 
 
-	void PlayFireAnimation(Player player)
-	{
+	public bool PlayFireAnimation(Player player)
+	{	/* Instantiate VFX, Audio clip
+	     *
+	     * Args:
+	     * 		Player player	- the player who's firing this weapon
+	     * 
+	     * Return:
+	     * 		(no return)
+		 */
+		if (this.magazine_size <= 0) {
+			return false;
+		}
+
+		if (this.fireRate > 0f) {
+			return false;
+		}
+
+		// VFX
 		clone_flame = Instantiate(flame, this.transform.position,
 			this.transform.rotation, this.transform) as GameObject;
 		clone_flame.transform.localPosition += new Vector3(0, 0, 60f);
+		this.flameDuration = 0.13f;
+		this.fireRate = 0.53f;
+
+		// Weapon Asset control
+		this.magazine_size -= 1;
+
+		// Causing damage
+		this.CheckBulletHit(this.player);
+
+		return true;
 	}
 
 
 
-	GameObject CheckBulletHit(Player player)
+	public GameObject CheckBulletHit(Player player)
 	{
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
@@ -46,6 +74,7 @@ public class Weapon : MonoBehaviour
 				Player other = hit.collider.gameObject.GetComponent(typeof(Player)) as Player;
 				other.life -= 1;
 				Debug.Log(other);
+				Debug.Log(other.life);
 			}
 			return hit.collider.gameObject;
 		}
@@ -63,7 +92,7 @@ public class Weapon : MonoBehaviour
 			Destroy(clone_flame.gameObject);
 		}
 		// control fire rate
-		if (!(fireRate < 0f)) {
+		if (fireRate > 0f) {
 			fireRate -= Time.deltaTime;
 		}
 
@@ -72,14 +101,5 @@ public class Weapon : MonoBehaviour
 			return;
 		}
 
-		// fire gun
-		if (Input.GetKeyDown(KeyCode.Mouse0) && fireRate < 0) {
-			PlayFireAnimation(player);	// play vfx
-			CheckBulletHit(player);		// check if hit something
-			flameDuration = 0.13f;
-			fireRate = 0.53f;
-		}
 	}
-
-
 }
