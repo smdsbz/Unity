@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Blood: MonoBehaviour {
+    public Canvas BloodCanvas;
     public Slider lifeSlider;
     public Image BloodImage;
-    public float process = 0.7f;
     // Use this for initialization
     void Start () {
-        lifeSlider.value = process;
+		BloodCanvas.gameObject.SetActive(true);
+		lifeSlider.value = 1f;
         BloodImage.color = new Color(0.5f, 0.5f, 0.5f, 1);
     }
 	
@@ -19,13 +20,13 @@ public class Blood: MonoBehaviour {
     public void SetProgress(float progress)
     {
         lifeSlider.value = progress;
-        if (process > 0.99)
+        if (progress > 0.99)
         {
             BloodImage.color = new Color(0.5f, 0.5f, 0.5f, 1);
         }
         else
         {
-            BloodImage.color = new Color(0.5f + 0.3f * (1 - process), 0.5f - 0.3f * (1 - process), 0.5f - 0.3f * (1 - process), 1);
+			BloodImage.color = new Color(0.5f + 0.3f * (1 - progress), 0.5f - 0.3f * (1 - progress), 0.5f - 0.3f * (1 - progress), 1);
         }
     }
 }

@@ -287,7 +287,6 @@ namespace ExitGames.Demos.DemoAnimator
         */
 
         #region IPunObservable implementation
-
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             if (stream.isWriting)

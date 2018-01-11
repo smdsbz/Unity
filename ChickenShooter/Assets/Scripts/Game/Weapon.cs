@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Weapon : MonoBehaviour
+
+[RequireComponent(typeof(PhotonView))]
+public class Weapon : Photon.PunBehaviour
 {
 
 	public GameObject playerRightHand;	// TODO: temporary
@@ -55,13 +57,22 @@ public class Weapon : MonoBehaviour
 		// Causing damage
 		this.CheckBulletHit(this.player);
 
+//		player.anim.SetTrigger("Fire");
 		return true;
 	}
 
 
 
 	public GameObject CheckBulletHit(Player player)
-	{
+	{	/*	Check if hit a <Player>
+		 *	
+		 *	Args:
+		 *		player	- self
+		 *
+		 *	Return:
+		 *		the GameObject that is hit, 
+		 *		or null if no player's hit
+		 */
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
 
@@ -73,6 +84,9 @@ public class Weapon : MonoBehaviour
 			if (hit.collider.gameObject.CompareTag("Player")) {
 				Player other = hit.collider.gameObject.GetComponent(typeof(Player)) as Player;
 				other.life -= 1;
+//				PhotonView photonView = PhotonView.Get(this);
+//				photonView.RPC("MinusLife", PhotonTargets.All);
+				player.CostOtherLife(other);
 				Debug.Log(other);
 				Debug.Log(other.life);
 			}
@@ -80,6 +94,8 @@ public class Weapon : MonoBehaviour
 		}
 		return null;
 	}
+
+
 
 
 
