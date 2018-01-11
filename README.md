@@ -6,7 +6,7 @@ Unity游戏开发
 
 开发运行环境
 ----------------
-macOS Sierra 10.12.5 with dell xps15-9550(16G 1080p 512G) hackintosh
+macOS High Sierra 10.13.1 with dell xps15-9550(16G 4k 512G) hackintosh
 
 项目目录
 ---------------
